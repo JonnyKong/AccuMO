@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "com.example.accumo";
+
+message UploadMetadata {
+  int32 frameIdx = 1;
+  int32 frameSize = 2;
+  int32 taskType = 3; // 0 is depth, 1 is pose, 2 is both, -1 is dummy bytes
+  int32 imgH = 4;
+  int32 imgW = 5;
+  double distance = 6;
+  string yuvFormat = 7;
+}
+
+message DownloadMetadata {
+  int32 frameIdx = 1;
+  int32 resultSize = 2;
+  int32 taskType = 3;
+  int32 task0ResultSize = 4; // The result size of the first task, if both tasks exists
+  int64 timeDecoding = 5;
+  int64 timeInference = 6;
+  bool readDepthFromDisk = 7; // False is read depth from network, true is from the phone's disk
+}
