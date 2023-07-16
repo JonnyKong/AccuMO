@@ -77,6 +77,8 @@ Server:
 
 1. Connect the phone to the laptop.
 
+1. Follow the steps [here](https://developer.android.com/studio/debug/dev-options#enable) to enable Developer options and USB debugging on the phone.
+
 1. On the laptop, open the `client/` folder with Android Studio.
 
 1. Build and install the app, by clicking **Run** <img src="https://developer.android.com/static/studio/images/buttons/toolbar-run.png" width="15">.
