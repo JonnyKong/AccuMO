@@ -24,7 +24,7 @@ Server:
 
 ## Quick start
 
-#### 1. Download and preprocess datasets and pretrained models on the laptop
+#### 1. Laptop preparations
 
 1. Clone this repository to any directory.
 
@@ -42,20 +42,22 @@ Server:
 1. Convert the downloaded RGB frames to YUV format.
 
     ```bash
+    # (from the top-level directory)
     cd dataset && ./run_convert_to_yuv.sh && cd -
     ```
 
 1. Connect the phone to the laptop, and upload the YUV frames and model files to the phone via ADB:
 
     ```bash
+    # (from the top-level directory)
     adb shell mkdir -p /sdcard/accumo/dataset
-    adb push yuv/* /sdcard/accumo/dataset
+    adb push dataset/yuv/* /sdcard/accumo/dataset
 
     adb shell mkdir -p /sdcard/accumo/models
     adb push pretrained_models/client/fast-depth-64x224* /sdcard/accumo/models
     ```
 
-#### 2. Setup the GPU server
+#### 2. Server preparations
 
 1. Clone this repository to any directory.
 
@@ -64,6 +66,7 @@ Server:
 1. Create a conda environment and install dependencies:
 
     ```bash
+    # (from the top-level directory)
     conda create -n accumo python=3.9 tensorflow-gpu=2.7.0 'pytorch=1.10.1=*cuda*' \
         'torchvision=0.11.2=*cuda*' cudatoolkit cudatoolkit-dev scikit-image \
         pandas opencv av tqdm matplotlib -c conda-forge
@@ -73,7 +76,7 @@ Server:
 
 1. If the server is configured with firewall, configure it to allow TCP on port 9999.
 
-#### 3. Install the client app on the Android phone
+#### 3. Phone preparations
 
 1. Connect the phone to the laptop.
 
@@ -94,6 +97,7 @@ Server:
 1. Start the server process:
 
     ```bash
+    # (from the top-level directory)
     python -m server.server
     ```
 
