@@ -36,4 +36,4 @@ if __name__ == '__main__':
     traj_ref = align_stride(traj_ref, traj_est)
     if args.scale_per_frame:
         traj_est = scale_per_frame(traj_ref, traj_est)
-    print(kitti_error(traj_ref, traj_est))
+    print('KITTI error: ', kitti_error(traj_ref, traj_est))

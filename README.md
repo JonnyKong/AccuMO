@@ -70,13 +70,14 @@ Server:
 
 2. Download the [pretrained_models](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/EvA6FUl0HE1LvTMHQ5NR5rQBvlVYBMQXSCmY44pi5cXVQg?e=MpAhJD) folder and place it in the top-level directory.
 
-3. Create a conda environment and install dependencies:
+3. Create a conda environment and install dependencies. Note that the environment creation
+is likely to take a long time (tens of minutes):
 
     ```bash
     # (from the top-level directory)
-    conda create -n accumo python=3.9 tensorflow-gpu=2.7.0 'pytorch=1.10.1=*cuda*' \
-        'torchvision=0.11.2=*cuda*' cudatoolkit cudatoolkit-dev scikit-image \
-        pandas opencv av tqdm matplotlib -c conda-forge
+    conda create -n accumo python=3.9 tensorflow-gpu=2.7.0 'pytorch=1.11.0=*cuda*' \
+        torchvision cudatoolkit cudatoolkit-dev scikit-image pandas opencv av \
+        tqdm matplotlib -c pytorch -c conda-forge
     conda activate accumo
     cd server/flownet2-pytorch && ./install.sh && cd -
     ```
@@ -87,13 +88,15 @@ Server:
 
 1. Connect the phone to the laptop.
 
-2. Follow the steps [here](https://developer.android.com/studio/debug/dev-options#enable) to enable Developer options and USB debugging on the phone.
+2. Connect the phone to any network (Wi-Fi or cellular) that can access the server.
 
-3. On the laptop, open the `client/` folder with Android Studio.
+3. Follow the steps [here](https://developer.android.com/studio/debug/dev-options#enable) to enable Developer options and USB debugging on the phone.
 
-4. Build and install the app, by clicking **Run** <img src="https://developer.android.com/static/studio/images/buttons/toolbar-run.png" width="15">.
+4. On the laptop, open the `client/` folder with Android Studio.
 
-5. On the phone, grant permissions to the "AccuMO" app:
+5. Build and install the app, by clicking **Run** <img src="https://developer.android.com/static/studio/images/buttons/toolbar-run.png" width="15">.
+
+6. On the phone, grant permissions to the "AccuMO" app:
     * Long-press the "AccuMO" app, click `App info`, then click `Permissions`.
     * Go in `Camera permission` and select `Allow only while using the app`.
     * Go in `Files and media` and select `Allow management of all files`.
@@ -108,20 +111,53 @@ Server:
     python -m server.server
     ```
 
-2. Run the following command on the laptop to start offloading the downloaded video.
+2. Run the following command on the laptop to start offloading the downloaded video. Replace `<SERVER_IP>` with the address of the server.
 
     ```bash
     adb shell am start -n com.example.accumo/.MainActivity \
         -e com.example.accumo.VIDEO 2022-04-13-Town06-0060-40-0 \
         -e com.example.accumo.SCHED mpc \
         --ez com.example.accumo.ENABLE_FASTDEPTH true \
-        -e com.example.accumo.MODE online
+        -e com.example.accumo.MODE online \
+        -e com.example.accumo.IP <SERVER_IP>
     ```
+
 3. The resulting depth maps and VO trajectories will be written to files. Pull them to the laptop to compute the accuracy:
 
-    ```bash
-    adb pull /sdcard/accumo/results <RESULT_DIR>
-    # TODO
-    # compute odometry accuracy
-    python scripts/odom/kitti_error.py dataset/yuv/2022-04-13-Town06-0060-40-0/poses_gt_skipped.txt <RESULT_DIR>/poses.txt
-    ```
+    1. Pull results from phone to laptop into any directory (denoted `<RESULT_DIR>`)
+
+        ```bash
+        adb pull /sdcard/accumo/results <RESULT_DIR>
+        ```
+
+    2. Compute odometry accuracy
+        ```bash
+        python scripts/odom/kitti_error.py \
+            dataset/rgb/2022-04-13-Town06-0060-40-0/poses_gt_skipped.txt \
+            <RESULT_DIR>/mpc/2022-04-13-Town06-0060-40-0/poses.txt
+        ```
+
+        You are expected to see the following outputs (the exact number may differ):
+
+        ```
+        KITTI error:  0.11263842591295233
+        ```
+
+    3. Compute depth accuracy
+        ```bash
+        python scripts/depth/get_depth_acc.py \
+            dataset/rgb/2022-04-13-Town06-0060-40-0 \
+            <RESULT_DIR>/mpc/2022-04-13-Town06-0060-40-0/depth
+        ```
+
+        You are expected to see the following outputs (the exact numbers may differ):
+
+        ```
+        ...
+        AbsRel for frame 002334.png: 0.139769047498703
+        AbsRel for frame 002335.png: 0.16346190869808197
+        AbsRel for frame 002336.png: 0.18522021174430847
+        AbsRel for frame 002337.png: 0.20051079988479614
+        AbsRel for frame 002338.png: 0.16257807612419128
+        Mean AbsRel: 0.21011945605278015
+        ```
