@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    private static final String IP_MESSAGE = "com.example.accumo.IP";
     private static final String VIDEO_MESSAGE = "com.example.accumo.VIDEO";
     private static final String SCHED_MESSAGE = "com.example.accumo.SCHED";
     private static final String MODE_MESSAGE = "com.example.accumo.MODE";
@@ -50,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private static Mat meshGridX; // Used by `applyOptflow()` function
     private static Mat meshGridY; // Used by `applyOptflow()` function
 
-    String host = "192.168.1.146";
-//    String host = "xr.ecn.purdue.edu";
+    // String host = "192.168.1.146";
+    // String host = "xr.ecn.purdue.edu";
+    String host;
     String port = "9999";
     private static final int IMG_H = 256;
     private static final int IMG_W = 832;
@@ -86,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Parse intents
         Intent intent = getIntent();
+        host = intent.getStringExtra(IP_MESSAGE);
+        if (host == null)
+            host = "192.168.1.146";
         String video = intent.getStringExtra(VIDEO_MESSAGE);
         if (video == null)
             video = "1000";

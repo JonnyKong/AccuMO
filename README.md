@@ -8,7 +8,7 @@
 
 2. A Mac/linux laptop with Android Studio installed.
 
-3. A linux server with a NVIDIA GPU (tested with a machine running Ubuntu 18.04.6 LTS with NVIDIA 2080Ti GPU, but others should also work).
+3. A linux server with a NVIDIA GPU (tested on Ubuntu 18.04.6 LTS and NVIDIA 2080Ti, but others should also work).
 
    * This server can be the same physical machine as the laptop. Otherwise, this server needs to have an IP address reachable from the phone.
 
@@ -58,10 +58,11 @@ Server:
     adb push pretrained_models/client/fast-depth-64x224* /sdcard/accumo/models
     ```
 
-5. Install dependencies for odometry accuracy calculation:
+5. Install dependencies for accuracy calculation:
 
    ```bash
    pip install evo --upgrade --no-binary evo
+   pip install scikit-image pandas numpy Pillow
    ```
 
 #### 2. Server preparations
@@ -104,14 +105,15 @@ is likely to take a long time (tens of minutes):
 
 #### 4. Run the experiments and compute the results
 
-1. Start the server process:
+1. On the linux server, start the server process:
 
     ```bash
     # (from the top-level directory)
     python -m server.server
     ```
 
-2. Run the following command on the laptop to start offloading the downloaded video. Replace `<SERVER_IP>` with the address of the server.
+2. On the laptop, run the following command to start offloading the downloaded video, replacing
+`<SERVER_IP>` with the address of the server.
 
     ```bash
     adb shell am start -n com.example.accumo/.MainActivity \
@@ -122,7 +124,10 @@ is likely to take a long time (tens of minutes):
         -e com.example.accumo.IP <SERVER_IP>
     ```
 
-3. The resulting depth maps and VO trajectories will be written to files. Pull them to the laptop to compute the accuracy:
+    The resulting depth maps and VO trajectories will be written to files on the phone, under
+    `/sdcard/accumo/results`.
+
+3.  On the laptop, compute the accuracy:
 
     1. Pull results from phone to laptop into any directory (denoted `<RESULT_DIR>`)
 

@@ -2,7 +2,7 @@ package com.example.accumo;
 
 import android.util.Log;
 
-import com.example.accumo.ml.Flownet2Fullres;
+//import com.example.accumo.ml.Flownet2Fullres;
 
 import org.ejml.simple.SimpleMatrix;
 import org.opencv.core.CvType;
