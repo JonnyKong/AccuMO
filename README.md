@@ -1,18 +1,27 @@
 # AccuMO
 
-**[MobiCom '23]** AccuMO: Accuracy-Centric Multitask Offloading in Edge-Assisted Mobile Augmented Reality
+**[MobiCom '23]** AccuMO: Accuracy-Centric Multitask Offloading in
+Edge-Assisted Mobile Augmented Reality
 
 ## Hardware Requirements
 
-1. An Android phone (tested on a Pixel 5 with Android 12, but others should also work).
+1. An Android phone
 
-2. A Mac/linux laptop with Android Studio installed.
+    * Tested on a Pixel 5 with Android 12, but others should also work.
 
-3. A linux server with a NVIDIA GPU (tested on Ubuntu 18.04.6 LTS and NVIDIA
-   2080Ti, but others should also work).
+2. A Mac/linux laptop
 
-   * This server can be the same physical machine as the laptop. Otherwise,
-     this server needs to have an IP address reachable from the phone.
+    * With 10GB of disk space.
+
+3. A linux server with a NVIDIA GPU
+
+    * Tested on Ubuntu 18.04.6 LTS and NVIDIA 2080Ti, but others should also
+      work.
+
+    * This server needs to have an IP address reachable from the phone.
+
+    * This server can be the same physical machine as the laptop, if it meets
+      the server hardware requirements.
 
 ## Software Requirements
 
@@ -20,6 +29,7 @@ Laptop:
   * [ffmpeg](https://ffmpeg.org/download.html)
   * [adb](https://developer.android.com/tools/adb)
   * [Android Studio](https://developer.android.com/studio)
+  * [Python 3.x](https://www.python.org/downloads/)
 
 Server:
   * [anaconda/miniconda](https://docs.conda.io/projects/continuumio-conda/en/latest/user-guide/install/macos.html)
@@ -46,7 +56,17 @@ Server:
 
     ```bash
     # (from the top-level directory)
-    cd dataset && ./run_convert_to_yuv.sh && cd -
+    ./scripts/run_convert_to_yuv.sh
+    ```
+
+    You are expected to see the following outputs. It will take several minutes
+    for all frames to be processed.
+
+    ```
+    Processing frame: 0000000576.jpg
+    Processing frame: 0000000578.jpg
+    Processing frame: 0000000580.jpg
+    ...
     ```
 
 4. Connect the phone to the laptop, and upload the YUV frames and model files to the phone via ADB:
@@ -76,7 +96,8 @@ Server:
    folder and place it in the top-level directory.
 
 3. Create a conda environment and install dependencies. Note that the
-   environment creation is likely to take a long time (tens of minutes):
+   environment creation is likely to take a long time (tens of minutes to an
+   hour):
 
     ```bash
     # (from the top-level directory)
