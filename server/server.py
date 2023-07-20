@@ -120,7 +120,7 @@ def inference_daemon(q, wfile):
             img = cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)
 
         # # Verify decoding is correct
-        # cv2.imwrite(f'/home/kong102/tmp/{metadata_ul.frameIdx}.png',
+        # cv2.imwrite(f'tmp/{metadata_ul.frameIdx}.png',
         #             cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
 
         # Write dummy data to increase throughput

@@ -1,13 +1,3 @@
-"""
-    AdaBins adapter.
-
-    Desired hw is defined at:
-        KITTI: https://github.com/shariqfarooq123/AdaBins/blob/main/args_test_kitti_eigen.txt
-        NYU: https://github.com/shariqfarooq123/AdaBins/blob/main/args_test_nyu.txt
-
-    @Author kong102@purdue.edu
-    @Date   2021-06-26
-"""
 import numpy as np
 import torch
 import torchvision.transforms.functional as TF
