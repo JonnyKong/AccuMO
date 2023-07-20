@@ -221,6 +221,15 @@ class Handler(socketserver.StreamRequestHandler):
 
 
 if __name__ == '__main__':
+    # Do a dummy inference for force cold start
+    for i in range(4):
+        _ = vo_adapter(
+            i,
+            np.random.randint(0, 255, size=(128, 448, 3), dtype=np.uint8),
+            0.0)
+
+    print('Server ready')
+
     with socketserver.TCPServer(('', 9999), Handler) as server:
         try:
             server.serve_forever()
