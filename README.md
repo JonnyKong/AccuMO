@@ -8,8 +8,9 @@ the offloading of multiple compute-intensive DNN tasks of an AR app from a
 mobile device, while optimizing the overall DNN inference accuracy across the
 tasks.
 
-This repository contains the code and scripts to run and evaluate AccuMO, and
-the download links to the pretrained models and an example dataset.
+This repository contains the code and scripts to run and evaluate AccuMO,
+download links to the pretrained models, and an example dataset that evaluates
+AccuMO on two tasks: depth estimation and visual odometry (VO).
 
 ## Hardware Requirements
 
