@@ -8,9 +8,11 @@
 
 2. A Mac/linux laptop with Android Studio installed.
 
-3. A linux server with a NVIDIA GPU (tested on Ubuntu 18.04.6 LTS and NVIDIA 2080Ti, but others should also work).
+3. A linux server with a NVIDIA GPU (tested on Ubuntu 18.04.6 LTS and NVIDIA
+   2080Ti, but others should also work).
 
-   * This server can be the same physical machine as the laptop. Otherwise, this server needs to have an IP address reachable from the phone.
+   * This server can be the same physical machine as the laptop. Otherwise,
+     this server needs to have an IP address reachable from the phone.
 
 ## Software Requirements
 
@@ -69,10 +71,12 @@ Server:
 
 1. Clone this repository to any directory.
 
-2. Download the [pretrained_models](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/EvA6FUl0HE1LvTMHQ5NR5rQBvlVYBMQXSCmY44pi5cXVQg?e=MpAhJD) folder and place it in the top-level directory.
+2. Download the
+   [pretrained_models](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/EvA6FUl0HE1LvTMHQ5NR5rQBvlVYBMQXSCmY44pi5cXVQg?e=MpAhJD)
+   folder and place it in the top-level directory.
 
-3. Create a conda environment and install dependencies. Note that the environment creation
-is likely to take a long time (tens of minutes):
+3. Create a conda environment and install dependencies. Note that the
+   environment creation is likely to take a long time (tens of minutes):
 
     ```bash
     # (from the top-level directory)
@@ -91,11 +95,15 @@ is likely to take a long time (tens of minutes):
 
 2. Connect the phone to any network (Wi-Fi or cellular) that can access the server.
 
-3. Follow the steps [here](https://developer.android.com/studio/debug/dev-options#enable) to enable Developer options and USB debugging on the phone.
+3. Follow the steps
+   [here](https://developer.android.com/studio/debug/dev-options#enable) to
+   enable Developer options and USB debugging on the phone.
 
 4. On the laptop, open the `client/` folder with Android Studio.
 
-5. Build and install the app, by clicking **Run** <img src="https://developer.android.com/static/studio/images/buttons/toolbar-run.png" width="15">.
+5. Build and install the app, by clicking **Run** <img
+   src="https://developer.android.com/static/studio/images/buttons/toolbar-run.png"
+   width="15">.
 
 6. On the phone, grant permissions to the "AccuMO" app:
     * Long-press the "AccuMO" app, click `App info`, then click `Permissions`.
@@ -112,8 +120,9 @@ is likely to take a long time (tens of minutes):
     python -m server.server
     ```
 
-2. On the laptop, run the following command to start offloading the downloaded video, replacing
-`<SERVER_IP>` with the address of the server.
+2. On the laptop, run the following command to start offloading the downloaded
+   video, replacing `<SERVER_IP>` with the address of the server. Make sure to
+   quit the AccuMO application on the phone (i.e. go back to the home screen).
 
     ```bash
     adb shell am start -n com.example.accumo/.MainActivity \
@@ -124,8 +133,15 @@ is likely to take a long time (tens of minutes):
         -e com.example.accumo.IP <SERVER_IP>
     ```
 
-    The resulting depth maps and VO trajectories will be written to files on the phone, under
-    `/sdcard/accumo/results`.
+    You are supposed to see the AccuMO app launching and showing a white
+    screen, and the server printing the information of each offloaded frame.    
+
+    Wait for 40-50 seconds for experiment to finish (i.e. the length of the
+    example video), which is indicated by the server stopping to print.
+
+    Then, quit the AccuMO application to go back to the home screen. The
+    resulting depth maps and VO trajectories will be written to files on the
+    phone, under `/sdcard/accumo/results`.
 
 3.  On the laptop, compute the accuracy:
 
