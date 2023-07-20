@@ -3,6 +3,14 @@
 **[MobiCom '23]** AccuMO: Accuracy-Centric Multitask Offloading in
 Edge-Assisted Mobile Augmented Reality
 
+AccuMO is an edge-assisted multi-task AR framework that dynamically schedules
+the offloading of multiple compute-intensive DNN tasks of an AR app from a
+mobile device, while optimizing the overall DNN inference accuracy across the
+tasks.
+
+This repository contains the code and scripts to run and evaluate AccuMO, and
+the download links to the pretrained models and an example dataset.
+
 ## Hardware Requirements
 
 1. An Android phone
@@ -20,18 +28,18 @@ Edge-Assisted Mobile Augmented Reality
 
     * This server needs to have an IP address reachable from the phone.
 
-    * This server can be the same physical machine as the laptop, if it meets
-      the server hardware requirements.
+    * This server can be the same physical machine as the laptop, if the laptop
+      meets the hardware requirements.
 
 ## Software Requirements
 
-Laptop:
+1. Laptop:
   * [ffmpeg](https://ffmpeg.org/download.html)
   * [adb](https://developer.android.com/tools/adb)
   * [Android Studio](https://developer.android.com/studio)
   * [Python 3.x](https://www.python.org/downloads/)
 
-Server:
+2. Server:
   * [anaconda/miniconda](https://docs.conda.io/projects/continuumio-conda/en/latest/user-guide/install/macos.html)
 
 ## Quick start
@@ -40,7 +48,12 @@ Server:
 
 1. Clone this repository to any directory.
 
-2. Download the [dataset](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/Eq4yAepzaPZPsLJziTJ9PHQBqZ1sF62yp71Ay78Ob0VHjg) and [pretrained_models](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/EvA6FUl0HE1LvTMHQ5NR5rQBvlVYBMQXSCmY44pi5cXVQg?e=MpAhJD) folders and place them in the top-level directory, i.e., the top-level directory will look like:
+2. Download the [dataset
+   (290MB)](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/Eq4yAepzaPZPsLJziTJ9PHQBqZ1sF62yp71Ay78Ob0VHjg)
+   and [pretrained_models
+   (2.57GB)](https://purdue0-my.sharepoint.com/:f:/g/personal/kong102_purdue_edu/EvA6FUl0HE1LvTMHQ5NR5rQBvlVYBMQXSCmY44pi5cXVQg?e=MpAhJD)
+   folders and place them in the top-level directory, i.e., the top-level
+   directory will look like:
 
     ```
     AccuMO/
