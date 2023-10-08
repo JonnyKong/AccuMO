@@ -1,5 +1,7 @@
 # AccuMO
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8266421.svg)](https://doi.org/10.5281/zenodo.8266421)
+
 **[MobiCom '23]** AccuMO: Accuracy-Centric Multitask Offloading in
 Edge-Assisted Mobile Augmented Reality
 
@@ -92,6 +94,7 @@ AccuMO on two tasks: depth estimation and visual odometry (VO).
     
     adb shell mkdir -p /sdcard/accumo/models
     adb push pretrained_models/client/fast-depth-64x224* /sdcard/accumo/models
+    cp pretrained_models/client/*.tflite client/app/src/main/ml
     ```
 
 5. Install dependencies for accuracy calculation:
@@ -154,6 +157,9 @@ AccuMO on two tasks: depth estimation and visual odometry (VO).
     # (from the top-level directory)
     python -m server.server
     ```
+    
+    The server will take around 30s to start. Proceed after the server prints
+    "Server ready".
 
 2. On the laptop, run the following command to start offloading the downloaded
    video, replacing `<SERVER_IP>` with the address of the server. Make sure to
